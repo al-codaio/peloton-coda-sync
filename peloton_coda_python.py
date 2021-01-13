@@ -1,7 +1,7 @@
 # One-way data sync from Peloton API to Coda in Python
 # Author: Al Chen (al@coda.io)
 # Last Updated: January 12th, 2021
-# See full writeup here: https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates
+# Writeup and copyable template here: https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates
 
 ################# Setup and global variables ###########
 
