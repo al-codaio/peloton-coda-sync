@@ -27,7 +27,7 @@ Step-by-step:
 9. Fill in your Peloton username and password in `YOUR_PELOTON_USERNAME` and `YOUR_PELOTON_PASSWORD` (remember to keep the single quotes around both values). 
 10. Click the dropdown menu next to the **Debug** button in the toolbar and select the `runPelotonSync` option.
 ![](https://p-ZmF7dQ.b0.n0.cdn.getcloudapp.com/items/DOuoZGyg/ea345472-486d-4b9f-a25e-796f52c311d8.jpg?v=b23049db474c1e63080e2975a9d1be90)
-11. Click the **Run** ▶️ button and this sync all your Peloton workout data to the **Workouts** table in your Coda doc. Google may ask you to approve some permissions if this is the first time you're running a Google Apps Script.
+11. Click the **Run** ▶️ button and this sync all your Peloton workout data to the **Workouts** table in your Coda doc. Google may ask you to approve some permissions (you will get a message saying "Google hasn't verified this app." Click on **Advanced** and click on **Go to (script name)** to proceed).
 12. Get the script to run daily by clicking on the clock 🕒 icon on the left sidebar and set up a [time-driven trigger](https://developers.google.com/apps-script/guides/triggers/installable#time-driven_triggers).
 13. Click **create a new trigger**, make sure `runPelotonSync` is set as the function to run, "Select event source" should be `Time-driven`, and the type to "Hour timer." 
 
