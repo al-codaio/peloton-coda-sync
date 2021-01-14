@@ -18,7 +18,7 @@ PELOTON_PASSWORD = 'YOUR_PELOTON_PASSWORD'
 Step-by-step:
 1. Go to [script.google.com](script.google.com) and create a new project and give your project a name.
 2. Click on **Libraries** and enter the following string into the "Script ID" field: `15IQuWOk8MqT50FDWomh57UqWGH23gjsWVWYFms3ton6L-UHmefYHS9Vl`. *Note: If you are using the legacy Google Apps Scripted editor, go to **Libraries** then **Resources** in the toolbar.*
-3. Click **Add** and then select version 9 of library to use (as of January 2021, version 9 - Coda API v1.0.0 is the latest). Don't touch the other settings.
+3. Click **Lookup** and then select version 9 of library to use (as of January 2021, version 9 - Coda API v1.0.0 is the latest). Don't touch the other settings. Click **Add**.
 4. Copy and paste the [entire script](https://github.com/albertc44/peloton-coda-sync/blob/master/peloton_coda_gas.js) into your Google Apps Script editor (by default, the script name is "Code.gs")
 5. Go to your Coda [account settings](https://coda.io/account), scroll down until you see "API SETTINGS" and click **Generate API Token**. Copy and paste that API token into the value for `YOUR_CODA_API_KEY` in the script. *Note: do not delete the single apostrophes around* `YOUR_CODA_API_KEY`.
 6. Make a copy of [this template](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates) if you haven't already. 
@@ -27,7 +27,7 @@ Step-by-step:
 9. Fill in your Peloton username and password in `YOUR_PELOTON_USERNAME` and `YOUR_PELOTON_PASSWORD` (remember to keep the single quotes around both values). 
 10. Click the dropdown menu next to the **Debug** button in the toolbar and select the `runPelotonSync` option.
 ![](https://p-ZmF7dQ.b0.n0.cdn.getcloudapp.com/items/DOuoZGyg/ea345472-486d-4b9f-a25e-796f52c311d8.jpg?v=b23049db474c1e63080e2975a9d1be90)
-11. Click the **Run** ▶️ button and this sync all your Peloton workout data to the **Workouts** table in your Coda doc.
+11. Click the **Run** ▶️ button and this sync all your Peloton workout data to the **Workouts** table in your Coda doc. Google may ask you to approve some permissions if this is the first time you're running a Google Apps Script.
 12. Get the script to run daily by clicking on the clock 🕒 icon on the left sidebar and set up a [time-driven trigger](https://developers.google.com/apps-script/guides/triggers/installable#time-driven_triggers).
 13. Click **create a new trigger**, make sure `runPelotonSync` is set as the function to run, "Select event source" should be `Time-driven`, and the type to "Hour timer." 
 
