@@ -59,4 +59,4 @@ def pelotonData(request):
 * Props to [@geudrik](https://github.com/geudrik) and his [Peloton Client Library](https://github.com/geudrik/peloton-client-library). Use his library if you want to develop a custom application with your Peloton data.
 
 ## Video Tutorial
-![sync peloton data to coda](https://p-ZmF7dQ.b0.n0.cdn.getcloudapp.com/items/Koulb0mm/255d2e54-f25b-487a-a271-014d0a86323e.jpg?v=fb744cd781736451971e66af0c94e7f0)[](https://www.youtube.com/watch?v=L4llF9Wq58A)
+[![sync peloton data to coda](https://p-ZmF7dQ.b0.n0.cdn.getcloudapp.com/items/Koulb0mm/255d2e54-f25b-487a-a271-014d0a86323e.jpg?v=fb744cd781736451971e66af0c94e7f0)](https://www.youtube.com/watch?v=L4llF9Wq58A)
