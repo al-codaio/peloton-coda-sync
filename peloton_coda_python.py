@@ -1,6 +1,6 @@
 # One-way data sync from Peloton API to Coda in Python
 # Author: Al Chen (al@coda.io)
-# Last Updated: January 12th, 2021
+# Last Updated: January 21st, 2021
 # Writeup and copyable template here: https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates
 
 ################# Setup and global variables ###########
@@ -49,7 +49,8 @@ for workout_id in current_workout_ids:
 rows = []
 for key, values in workout_data.items():
 	cells = []
-	if values['performance']['average_summaries']: # for bike workouts
+	avg_summary_length = len(values['performance']['average_summaries'])
+	if avg_summary_length > 0: # for bike workouts
 		cells.extend((
 			{'column': 'Workout ID',          'value': key},
 			{'column': 'Date', 				  'value': values['summary']['created_at']},
@@ -66,10 +67,10 @@ for key, values in workout_data.items():
 	        {'column': 'Leaderboard Users',   'value': values['summary']['total_leaderboard_users']},
 	        {'column': 'Status', 			  'value': values['summary']['status']},
 	        {'column': 'Workout Description', 'value': values['summary']['ride']['description']},
-	        {'column': 'Avg Output (kj)', 	  'value': values['performance']['average_summaries'][0]['value']},
-	        {'column': 'Avg Cadence', 		  'value': values['performance']['average_summaries'][1]['value']},
-	        {'column': 'Avg Resistance',      'value': values['performance']['average_summaries'][2]['value']},
-	        {'column': 'Avg Speed (mph)',     'value': values['performance']['average_summaries'][3]['value']},
+	        {'column': 'Avg Output (kj)', 	  'value': values['performance']['average_summaries'][0]['value'] if 0 < avg_summary_length else 0},
+	        {'column': 'Avg Cadence', 		  'value': values['performance']['average_summaries'][1]['value'] if 1 < avg_summary_length else 0},
+	        {'column': 'Avg Resistance',      'value': values['performance']['average_summaries'][2]['value'] if 2 < avg_summary_length else 0},
+	        {'column': 'Avg Speed (mph)',     'value': values['performance']['average_summaries'][3]['value'] if 3 < avg_summary_length else 0},
 	        {'column': 'Total Output (kj)',   'value': values['performance']['summaries'][0]['value']},
 	        {'column': 'Distance (mi)', 	  'value': values['performance']['summaries'][1]['value']},
 	        {'column': 'Calories (kcal)',     'value': values['performance']['summaries'][2]['value']}

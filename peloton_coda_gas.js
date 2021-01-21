@@ -1,6 +1,6 @@
 // One-way data sync from Peloton API to Coda in Google Apps Script
 // Author: Al Chen (al@coda.io)
-// Last Updated: January 12th, 2021
+// Last Updated: January 21st, 2021
 // Notes: Assumes you are using the V8 runtime (https://developers.google.com/apps-script/guides/v8-runtime)
 // Coda's library for Google Apps Script: 15IQuWOk8MqT50FDWomh57UqWGH23gjsWVWYFms3ton6L-UHmefYHS9Vl
 // Writeup and copyable template here: https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates
@@ -77,10 +77,10 @@ function getPelotonWorkouts() {
         {'column': 'Leaderboard Users',     'value': workoutData[workout]['summary']['total_leaderboard_users']},
         {'column': 'Status',                'value': workoutData[workout]['summary']['status']},
         {'column': 'Workout Description',   'value': workoutData[workout]['summary']['ride']['description']},
-        {'column': 'Avg Output (kj)',       'value': workoutData[workout]['performance']['average_summaries'][0]['value']},
-        {'column': 'Avg Cadence',           'value': workoutData[workout]['performance']['average_summaries'][1]['value']},
-        {'column': 'Avg Resistance',        'value': workoutData[workout]['performance']['average_summaries'][2]['value']},
-        {'column': 'Avg Speed (mph)',       'value': workoutData[workout]['performance']['average_summaries'][3]['value']},
+        {'column': 'Avg Output (kj)',       'value': (workoutData[workout]['performance']['average_summaries'][0] != null) ? workoutData[workout]['performance']['average_summaries'][0]['value'] : 0},
+        {'column': 'Avg Cadence',           'value': (workoutData[workout]['performance']['average_summaries'][1] != null) ? workoutData[workout]['performance']['average_summaries'][1]['value'] : 0},
+        {'column': 'Avg Resistance',        'value': (workoutData[workout]['performance']['average_summaries'][2] != null) ? workoutData[workout]['performance']['average_summaries'][2]['value'] : 0},
+        {'column': 'Avg Speed (mph)',       'value': (workoutData[workout]['performance']['average_summaries'][3] != null) ? workoutData[workout]['performance']['average_summaries'][3]['value'] : 0},
         {'column': 'Total Output (kj)',     'value': workoutData[workout]['performance']['summaries'][0]['value']},
         {'column': 'Distance (mi)',         'value': workoutData[workout]['performance']['summaries'][1]['value']},
         {'column': 'Calories (kcal)',       'value': workoutData[workout]['performance']['summaries'][2]['value']}
