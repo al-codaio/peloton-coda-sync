@@ -1,6 +1,6 @@
 // One-way data sync from Peloton API to Coda in Google Apps Script
 // Author: Al Chen (al@coda.io)
-// Last Updated: January 21st, 2021
+// Last Updated: February 22nd, 2021
 // Notes: Assumes you are using the V8 runtime (https://developers.google.com/apps-script/guides/v8-runtime)
 // Coda's library for Google Apps Script: 15IQuWOk8MqT50FDWomh57UqWGH23gjsWVWYFms3ton6L-UHmefYHS9Vl
 // Writeup and copyable template here: https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates
@@ -28,8 +28,14 @@ function runPelotonSync() {
 // Current workout IDs
 function getWorkoutIds() {
   var currentWorkoutIds = []
-  var currentRows = CodaAPI.listRows(CODA_DOC_ID, CODA_TABLE_NAME).items
-  currentRows.map(function(row) {
+  var currentRows = []
+  var pageToken
+  do {
+    var response = CodaAPI.listRows(CODA_DOC_ID, CODA_TABLE_NAME, {limit: 500, pageToken: pageToken});
+    var currentRows = currentRows.concat(response.items);
+    pageToken = response.nextPageToken;
+  } while (pageToken);
+    currentRows.map(function(row) {
     currentWorkoutIds.push(row['name'])
   })
   return currentWorkoutIds
