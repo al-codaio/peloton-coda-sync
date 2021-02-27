@@ -1,6 +1,6 @@
 // One-way data sync from Peloton API to Coda in Google Apps Script
 // Author: Al Chen (al@coda.io)
-// Last Updated: February 22nd, 2021
+// Last Updated: February 27th, 2021
 // Notes: Assumes you are using the V8 runtime (https://developers.google.com/apps-script/guides/v8-runtime)
 // Coda's library for Google Apps Script: 15IQuWOk8MqT50FDWomh57UqWGH23gjsWVWYFms3ton6L-UHmefYHS9Vl
 // Writeup and copyable template here: https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates
@@ -66,50 +66,30 @@ function getPelotonWorkouts() {
   var rows = []
   for (workout in workoutData) {
     var cells = []
-    if (workoutData[workout]['performance']['average_summaries'].length > 0) {  // for bike workouts
-      cells = [
-        {'column': 'Workout ID',            'value': workout}, 
-        {'column': 'Date',                  'value': workoutData[workout]['summary']['created_at']},
-        {'column': 'Workout Type',          'value': workoutData[workout]['summary']['fitness_discipline']},
-        {'column': 'Difficulty',            'value': workoutData[workout]['summary']['ride']['difficulty_estimate']},
-        {'column': 'Duration',              'value': workoutData[workout]['summary']['ride']['duration']},
-        {'column': 'Class Thumbnail',       'value': workoutData[workout]['summary']['ride']['image_url']},
-        {'column': 'Instructor ID',         'value': workoutData[workout]['summary']['ride']['instructor_id']},
-        {'column': 'Total Ratings',         'value': workoutData[workout]['summary']['ride']['overall_rating_count']},
-        {'column': 'Workout Name',          'value': workoutData[workout]['summary']['ride']['title']},
-        {'column': 'Total Workouts',        'value': workoutData[workout]['summary']['ride']['total_workouts']},
-        {'column': 'Start Time',            'value': workoutData[workout]['summary']['start_time']},
-        {'column': 'Leaderboard Rank',      'value': workoutData[workout]['summary']['leaderboard_rank']},
-        {'column': 'Leaderboard Users',     'value': workoutData[workout]['summary']['total_leaderboard_users']},
-        {'column': 'Status',                'value': workoutData[workout]['summary']['status']},
-        {'column': 'Workout Description',   'value': workoutData[workout]['summary']['ride']['description']},
-        {'column': 'Avg Output (kj)',       'value': (workoutData[workout]['performance']['average_summaries'][0] != null) ? workoutData[workout]['performance']['average_summaries'][0]['value'] : 0},
-        {'column': 'Avg Cadence',           'value': (workoutData[workout]['performance']['average_summaries'][1] != null) ? workoutData[workout]['performance']['average_summaries'][1]['value'] : 0},
-        {'column': 'Avg Resistance',        'value': (workoutData[workout]['performance']['average_summaries'][2] != null) ? workoutData[workout]['performance']['average_summaries'][2]['value'] : 0},
-        {'column': 'Avg Speed (mph)',       'value': (workoutData[workout]['performance']['average_summaries'][3] != null) ? workoutData[workout]['performance']['average_summaries'][3]['value'] : 0},
-        {'column': 'Total Output (kj)',     'value': workoutData[workout]['performance']['summaries'][0]['value']},
-        {'column': 'Distance (mi)',         'value': workoutData[workout]['performance']['summaries'][1]['value']},
-        {'column': 'Calories (kcal)',       'value': workoutData[workout]['performance']['summaries'][2]['value']}
-      ]
-    } else {  // for non-bike workouts
-      cells = [
-        {'column': 'Workout ID',            'value': workout}, 
-        {'column': 'Date',                  'value':  workoutData[workout]['summary']['created_at']},
-        {'column': 'Workout Type',          'value': workoutData[workout]['summary']['fitness_discipline']},
-        {'column': 'Difficulty',            'value': workoutData[workout]['summary']['ride']['difficulty_estimate']},
-        {'column': 'Duration',              'value': workoutData[workout]['summary']['ride']['duration']},
-        {'column': 'Class Thumbnail',       'value': workoutData[workout]['summary']['ride']['image_url']},
-        {'column': 'Instructor ID',         'value': workoutData[workout]['summary']['ride']['instructor_id']},
-        {'column': 'Total Ratings',         'value': workoutData[workout]['summary']['ride']['overall_rating_count']},
-        {'column': 'Workout Name',          'value': workoutData[workout]['summary']['ride']['title']},
-        {'column': 'Total Workouts',        'value': workoutData[workout]['summary']['ride']['total_workouts']},
-        {'column': 'Start Time',            'value': workoutData[workout]['summary']['start_time']},
-        {'column': 'Leaderboard Rank',      'value': workoutData[workout]['summary']['leaderboard_rank']},
-        {'column': 'Leaderboard Users',     'value': workoutData[workout]['summary']['total_leaderboard_users']},
-        {'column': 'Status',                'value': workoutData[workout]['summary']['status']},
-        {'column': 'Workout Description',   'value': workoutData[workout]['summary']['ride']['description']},
-      ]
-    }
+    cells = [
+      {'column': 'Workout ID',            'value': workout}, 
+      {'column': 'Date',                  'value': workoutData[workout]['summary']['created_at']},
+      {'column': 'Workout Type',          'value': workoutData[workout]['summary']['fitness_discipline']},
+      {'column': 'Difficulty',            'value': workoutData[workout]['summary']['ride']['difficulty_estimate']},
+      {'column': 'Duration',              'value': workoutData[workout]['summary']['ride']['duration']},
+      {'column': 'Class Thumbnail',       'value': workoutData[workout]['summary']['ride']['image_url']},
+      {'column': 'Instructor ID',         'value': workoutData[workout]['summary']['ride']['instructor_id']},
+      {'column': 'Total Ratings',         'value': workoutData[workout]['summary']['ride']['overall_rating_count']},
+      {'column': 'Workout Name',          'value': workoutData[workout]['summary']['ride']['title']},
+      {'column': 'Total Workouts',        'value': workoutData[workout]['summary']['ride']['total_workouts']},
+      {'column': 'Start Time',            'value': workoutData[workout]['summary']['start_time']},
+      {'column': 'Leaderboard Rank',      'value': workoutData[workout]['summary']['leaderboard_rank']},
+      {'column': 'Leaderboard Users',     'value': workoutData[workout]['summary']['total_leaderboard_users']},
+      {'column': 'Status',                'value': workoutData[workout]['summary']['status']},
+      {'column': 'Workout Description',   'value': workoutData[workout]['summary']['ride']['description']},
+      {'column': 'Avg Output (kj)',       'value': (workoutData[workout]['performance']['average_summaries'].length < 1 || typeof workoutData[workout]['performance']['average_summaries'][0]['value'] === 'undefined' ? '' : workoutData[workout]['performance']['average_summaries'][0]['value'])},
+      {'column': 'Avg Cadence',           'value': (workoutData[workout]['performance']['average_summaries'].length < 1 || typeof workoutData[workout]['performance']['average_summaries'][1]['value'] === 'undefined' ? '' : workoutData[workout]['performance']['average_summaries'][1]['value'])},
+      {'column': 'Avg Resistance',        'value': (workoutData[workout]['performance']['average_summaries'].length < 1 || typeof workoutData[workout]['performance']['average_summaries'][2] === 'undefined' ? '' : workoutData[workout]['performance']['average_summaries'][2]['value'])},
+      {'column': 'Avg Speed (mph)',       'value': (workoutData[workout]['performance']['average_summaries'].length < 1 || typeof workoutData[workout]['performance']['average_summaries'][3] === 'undefined' ? '' : workoutData[workout]['performance']['average_summaries'][3]['value'])},
+      {'column': 'Total Output (kj)',     'value': (workoutData[workout]['performance']['average_summaries'].length < 1 || typeof workoutData[workout]['performance']['summaries'][0]['value'] === 'undefined' ? '' : workoutData[workout]['performance']['summaries'][0]['value'])},
+      {'column': 'Distance (mi)',         'value': (workoutData[workout]['performance']['average_summaries'].length < 1 || typeof workoutData[workout]['performance']['summaries'][1]['value'] === 'undefined' ? '' : workoutData[workout]['performance']['summaries'][1]['value'])},
+      {'column': 'Calories (kcal)',       'value': (workoutData[workout]['performance']['average_summaries'].length < 1 || typeof workoutData[workout]['performance']['summaries'][2]['value'] === 'undefined' ? '' : workoutData[workout]['performance']['summaries'][2]['value'])}
+    ]
     rows.push({'cells': cells})
   }
   CodaAPI.upsertRows(CODA_DOC_ID, CODA_TABLE_NAME, {rows: rows});
