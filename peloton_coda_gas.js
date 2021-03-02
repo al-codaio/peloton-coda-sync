@@ -1,6 +1,6 @@
 // One-way data sync from Peloton API to Coda in Google Apps Script
 // Author: Al Chen (al@coda.io)
-// Last Updated: February 27th, 2021
+// Last Updated: March 2nd, 2021
 // Notes: Assumes you are using the V8 runtime (https://developers.google.com/apps-script/guides/v8-runtime)
 // Coda's library for Google Apps Script: 15IQuWOk8MqT50FDWomh57UqWGH23gjsWVWYFms3ton6L-UHmefYHS9Vl
 // Writeup and copyable template here: https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates
@@ -19,6 +19,7 @@ var creds = auth()
 var options = creds[0]
 var userID = creds[1]
 var CODA_TABLE_NAME = 'Workouts'
+var codaFriendsWorkoutTable = 'Friend Workouts'
 
 function runPelotonSync() {
   getPelotonWorkouts()
@@ -135,6 +136,87 @@ function getPelotonInstructors() {
   })
   CodaAPI.upsertRows(CODA_DOC_ID, codaInstructorsTable, {rows: rows});
   Logger.log('Added ' + rows.length + ' instructors') 
+}
+
+// Get friends you are following
+function getFriendsData() {
+  var friends = JSON.parse(UrlFetchApp.fetch(base_url + '/api/user/' + userID + '/following', options), replacer) 
+  return friends['data']
+}
+
+// Get 10 latest workouts from friends
+function getFriendWorkouts() {
+  var friendsData = getFriendsData()
+  // Add yourself to list to build leaderboard
+  var me = JSON.parse(UrlFetchApp.fetch(base_url + '/api/user/' + userID, options), replacer) 
+  friendsData.push({
+    'id':         userID,
+    'image_url':  me.image_url,
+    'location':   me.location,
+    'username':   me.username,
+  }) 
+  
+  // Delete existing rows
+  var currentRows = []
+  var currentRowIds = []
+  var pageToken  
+  do {
+    var response = CodaAPI.listRows(CODA_DOC_ID, codaFriendsWorkoutTable, {limit: 500, pageToken: pageToken});
+    var currentRows = currentRows.concat(response.items);
+    pageToken = response.nextPageToken;
+  } while (pageToken);
+  currentRows.map(function(row) {
+    currentRowIds.push(row['id'])
+  })
+  CodaAPI.deleteRows(CODA_DOC_ID, codaFriendsWorkoutTable, {'rowIds' : currentRowIds})
+
+  // Get all friends' cycling workouts limited to latest 10 workouts
+  var friendWorkouts = {}  
+  friendsData.map(function(friend) {
+    var friendId = friend['id']
+    friendWorkouts[friendId] = {}
+    var currentFriendWorkouts = JSON.parse(UrlFetchApp.fetch(base_url + '/api/user/' + friendId + '/workouts', options), replacer)  
+    currentFriendWorkouts['data'].map(function(currentFriendWorkout) {
+      if (currentFriendWorkout['fitness_discipline'] == 'cycling' && Object.keys(friendWorkouts[friendId]).length < 10){
+        var workoutId = currentFriendWorkout['id']
+        var workoutSummary = JSON.parse(UrlFetchApp.fetch(base_url + '/api/workout/' + workoutId, options), replacer)
+        var workoutPerformance = JSON.parse(UrlFetchApp.fetch(base_url + '/api/workout/' + workoutId + '/performance_graph?every_n=1000', options), replacer)
+        friendWorkouts[friendId][workoutId] = {}
+        friendWorkouts[friendId][workoutId].image_url = friend['image_url']
+        friendWorkouts[friendId][workoutId].username = friend['username']
+        friendWorkouts[friendId][workoutId].location = friend['location']
+        friendWorkouts[friendId][workoutId].summary = workoutSummary
+        friendWorkouts[friendId][workoutId].performance = workoutPerformance
+      }   
+    })    
+  })
+
+  // Push to Friend Workouts to Coda table
+  var rows = []
+  for (friend in friendWorkouts) {
+    for (workout in friendWorkouts[friend]) {
+      var cells = []
+      cells = [
+        {'column': 'Peloton ID',            'value': friend}, 
+        {'column': 'Username',              'value': friendWorkouts[friend][workout]['username']},
+        {'column': 'Pic',                   'value': friendWorkouts[friend][workout]['image_url']},
+        {'column': 'Location',              'value': friendWorkouts[friend][workout]['location']},
+        {'column': 'Workout ID',            'value': workout},
+        {'column': 'Workout Timestamp',     'value': friendWorkouts[friend][workout]['summary']['created_at']},
+        {'column': 'Duration',              'value': friendWorkouts[friend][workout]['summary']['ride']['duration']},
+        {'column': 'Output (kj)',           'value': friendWorkouts[friend][workout]['performance']['summaries'][0]['value']},
+        {'column': 'Distance (mi)',         'value': friendWorkouts[friend][workout]['performance']['summaries'][1]['value']},
+        {'column': 'Calories (kcal)',       'value': friendWorkouts[friend][workout]['performance']['summaries'][2]['value']},
+        {'column': 'Avg Output (kj)',       'value': friendWorkouts[friend][workout]['performance']['average_summaries'][0]['value']},
+        {'column': 'Avg Cadence (rpm)',     'value': friendWorkouts[friend][workout]['performance']['average_summaries'][1]['value']},
+        {'column': 'Avg Resistance',        'value': friendWorkouts[friend][workout]['performance']['average_summaries'][2]['value']},
+        {'column': 'Avg Speed (mph)',       'value': friendWorkouts[friend][workout]['performance']['average_summaries'][3]['value']},
+      ]
+      rows.push({'cells': cells})
+    }
+  }
+  CodaAPI.upsertRows(CODA_DOC_ID, codaFriendsWorkoutTable, {rows: rows});
+  Logger.log('Added ' + rows.length + ' workouts from the ' + (friendsData.length - 1) + ' friends you follow.')  
 }
                    
 // Helpers
