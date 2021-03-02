@@ -15,6 +15,7 @@ I have created a [Coda template](https://coda.io/@atc/analyze-your-peloton-worko
 * Some tidying up: collapsed some charts and views in [Cycling](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/cycling-7)
 * Fixed Google Apps Script to account for a variety of other workouts
 
+## What these scripts do
 There are two scripts in this repo you can run to sync your [Peloton](https://www.onepeloton.com/) workout data to a [Coda](https://www.coda.io) doc. One script is meant to be run in [Google Apps Scripts](https://developers.google.com/apps-script/overview) and the other is a Python script you can run as a traditional cron job:
 1. [**peloton_coda_gas.js**](https://github.com/albertc44/peloton-coda-sync/blob/master/peloton_coda_gas.js) - For Google Apps Script ([gist](https://gist.github.com/albertc44/6419584906710daddbe5a4017ecc19bf))
 2. [**peloton_coda_python.py**](https://github.com/albertc44/peloton-coda-sync/blob/master/peloton_coda_python.py) - Python script to run locally or in the cloud as a cron job ([gist](https://gist.github.com/albertc44/b9cc9fe33a46cb014eef22f95cd4d459))
