@@ -1,6 +1,6 @@
 // One-way data sync from Peloton API to Coda in Google Apps Script
 // Author: Al Chen (al@coda.io)
-// Last Updated: March 2nd, 2021
+// Last Updated: March 4th, 2021
 // Notes: Assumes you are using the V8 runtime (https://developers.google.com/apps-script/guides/v8-runtime)
 // Coda's library for Google Apps Script: 15IQuWOk8MqT50FDWomh57UqWGH23gjsWVWYFms3ton6L-UHmefYHS9Vl
 // Writeup and copyable template here: https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates
@@ -23,7 +23,8 @@ var codaFriendsWorkoutTable = 'Friend Workouts'
 
 function runPelotonSync() {
   getPelotonWorkouts()
-  getPelotonInstructors()  
+  getPelotonInstructors()
+  getFriendWorkouts()
 }
 
 // Current workout IDs
@@ -87,9 +88,9 @@ function getPelotonWorkouts() {
       {'column': 'Avg Cadence',           'value': (workoutData[workout]['performance']['average_summaries'].length < 1 || typeof workoutData[workout]['performance']['average_summaries'][1] === 'undefined' ? '' : workoutData[workout]['performance']['average_summaries'][1]['value'])},
       {'column': 'Avg Resistance',        'value': (workoutData[workout]['performance']['average_summaries'].length < 1 || typeof workoutData[workout]['performance']['average_summaries'][2] === 'undefined' ? '' : workoutData[workout]['performance']['average_summaries'][2]['value'])},
       {'column': 'Avg Speed (mph)',       'value': (workoutData[workout]['performance']['average_summaries'].length < 1 || typeof workoutData[workout]['performance']['average_summaries'][3] === 'undefined' ? '' : workoutData[workout]['performance']['average_summaries'][3]['value'])},
-      {'column': 'Total Output (kj)',     'value': (workoutData[workout]['performance']['average_summaries'].length < 1 || typeof workoutData[workout]['performance']['summaries'][0] === 'undefined' ? '' : workoutData[workout]['performance']['summaries'][0]['value'])},
-      {'column': 'Distance (mi)',         'value': (workoutData[workout]['performance']['average_summaries'].length < 1 || typeof workoutData[workout]['performance']['summaries'][1] === 'undefined' ? '' : workoutData[workout]['performance']['summaries'][1]['value'])},
-      {'column': 'Calories (kcal)',       'value': (workoutData[workout]['performance']['average_summaries'].length < 1 || typeof workoutData[workout]['performance']['summaries'][2] === 'undefined' ? '' : workoutData[workout]['performance']['summaries'][2]['value'])}
+      {'column': 'Total Output (kj)',     'value': (workoutData[workout]['performance']['summaries'].length < 1 || typeof workoutData[workout]['performance']['summaries'][0] === 'undefined' ? '' : workoutData[workout]['performance']['summaries'][0]['value'])},
+      {'column': 'Distance (mi)',         'value': (workoutData[workout]['performance']['summaries'].length < 1 || typeof workoutData[workout]['performance']['summaries'][1] === 'undefined' ? '' : workoutData[workout]['performance']['summaries'][1]['value'])},
+      {'column': 'Calories (kcal)',       'value': (workoutData[workout]['performance']['summaries'].length < 1 || typeof workoutData[workout]['performance']['summaries'][2] === 'undefined' ? '' : workoutData[workout]['performance']['summaries'][2]['value'])}
     ]
     rows.push({'cells': cells})
   }
@@ -204,13 +205,13 @@ function getFriendWorkouts() {
         {'column': 'Workout ID',            'value': workout},
         {'column': 'Workout Timestamp',     'value': friendWorkouts[friend][workout]['summary']['created_at']},
         {'column': 'Duration',              'value': friendWorkouts[friend][workout]['summary']['ride']['duration']},
-        {'column': 'Output (kj)',           'value': friendWorkouts[friend][workout]['performance']['summaries'][0]['value']},
-        {'column': 'Distance (mi)',         'value': friendWorkouts[friend][workout]['performance']['summaries'][1]['value']},
-        {'column': 'Calories (kcal)',       'value': friendWorkouts[friend][workout]['performance']['summaries'][2]['value']},
-        {'column': 'Avg Output (kj)',       'value': friendWorkouts[friend][workout]['performance']['average_summaries'][0]['value']},
-        {'column': 'Avg Cadence (rpm)',     'value': friendWorkouts[friend][workout]['performance']['average_summaries'][1]['value']},
-        {'column': 'Avg Resistance',        'value': friendWorkouts[friend][workout]['performance']['average_summaries'][2]['value']},
-        {'column': 'Avg Speed (mph)',       'value': friendWorkouts[friend][workout]['performance']['average_summaries'][3]['value']},
+        {'column': 'Output (kj)',           'value': (friendWorkouts[friend][workout]['performance']['summaries'].length < 1 || typeof friendWorkouts[friend][workout]['performance']['summaries'][0] === 'undefined' ? '' : friendWorkouts[friend][workout]['performance']['summaries'][0]['value'])},
+        {'column': 'Distance (mi)',         'value': (friendWorkouts[friend][workout]['performance']['summaries'].length < 1 || typeof friendWorkouts[friend][workout]['performance']['summaries'][1] === 'undefined' ? '' : friendWorkouts[friend][workout]['performance']['summaries'][1]['value'])},
+        {'column': 'Calories (kcal)',       'value': (friendWorkouts[friend][workout]['performance']['summaries'].length < 1 || typeof friendWorkouts[friend][workout]['performance']['summaries'][2] === 'undefined' ? '' : friendWorkouts[friend][workout]['performance']['summaries'][2]['value'])},
+        {'column': 'Avg Output (kj)',       'value': (friendWorkouts[friend][workout]['performance']['average_summaries'].length < 1 || typeof friendWorkouts[friend][workout]['performance']['average_summaries'][0] === 'undefined' ? '' : friendWorkouts[friend][workout]['performance']['average_summaries'][0]['value'])},
+        {'column': 'Avg Cadence (rpm)',     'value': (friendWorkouts[friend][workout]['performance']['average_summaries'].length < 1 || typeof friendWorkouts[friend][workout]['performance']['average_summaries'][1] === 'undefined' ? '' : friendWorkouts[friend][workout]['performance']['average_summaries'][1]['value'])},
+        {'column': 'Avg Resistance',        'value': (friendWorkouts[friend][workout]['performance']['average_summaries'].length < 1 || typeof friendWorkouts[friend][workout]['performance']['average_summaries'][2] === 'undefined' ? '' : friendWorkouts[friend][workout]['performance']['average_summaries'][2]['value'])},
+        {'column': 'Avg Speed (mph)',       'value': (friendWorkouts[friend][workout]['performance']['average_summaries'].length < 1 || typeof friendWorkouts[friend][workout]['performance']['average_summaries'][3] === 'undefined' ? '' : friendWorkouts[friend][workout]['performance']['average_summaries'][3]['value'])},
       ]
       rows.push({'cells': cells})
     }
