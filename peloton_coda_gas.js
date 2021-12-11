@@ -1,6 +1,6 @@
 // One-way data sync from Peloton API to Coda in Google Apps Script
 // Author: Al Chen (al@coda.io)
-// Last Updated: March 4th, 2021
+// Last Updated: December 11th, 2021
 // Notes: Assumes you are using the V8 runtime (https://developers.google.com/apps-script/guides/v8-runtime)
 // Coda's library for Google Apps Script: 15IQuWOk8MqT50FDWomh57UqWGH23gjsWVWYFms3ton6L-UHmefYHS9Vl
 // Writeup and copyable template here: https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates
@@ -46,15 +46,19 @@ function getWorkoutIds() {
 // Get workouts from Peloton API
 function getPelotonWorkouts() {
   var workoutData = {}
-  var workouts = JSON.parse(UrlFetchApp.fetch(base_url + '/api/user/' + userID + '/workouts?limit=1000', options), replacer) 
-  workouts['data'].map(function(workout) {
-	var workoutId = workout['id']
-    workoutData[workoutId] = {}
-	var workoutSummary = JSON.parse(UrlFetchApp.fetch(base_url + '/api/workout/' + workoutId, options), replacer)
-    var workoutPerformance = JSON.parse(UrlFetchApp.fetch(base_url + '/api/workout/' + workoutId + '/performance_graph?every_n=1000', options), replacer)
-	workoutData[workoutId].summary = workoutSummary	
-	workoutData[workoutId].performance = workoutPerformance
-  })
+  var page = 0
+  do {
+    var workouts = JSON.parse(UrlFetchApp.fetch(base_url + '/api/user/' + userID + '/workouts?limit=100&page=' + page, options), replacer) 
+    workouts['data'].map(function(workout) {
+      var workoutId = workout['id']
+      workoutData[workoutId] = {}
+      var workoutSummary = JSON.parse(UrlFetchApp.fetch(base_url + '/api/workout/' + workoutId, options), replacer)
+      var workoutPerformance = JSON.parse(UrlFetchApp.fetch(base_url + '/api/workout/' + workoutId + '/performance_graph?every_n=1000',  options), replacer)
+      workoutData[workoutId].summary = workoutSummary 
+      workoutData[workoutId].performance = workoutPerformance
+    })
+    page++
+  } while (workouts['data'].length > 0)
 
   // Remove workouts that already exist in Coda
   var currentWorkoutIds = getWorkoutIds()
