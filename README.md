@@ -3,7 +3,7 @@
 # Sync data from Peloton to a table in a Coda doc
 I have created a [Coda template](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates) you can copy which contains the tables setup for syncing your own Peloton data. I try to make updates to the charts and dashboards in the template so check the template for new functionality. 
 
-## December 1st, 2021 Update
+## December 11th, 2021 Update
 * Fixed issue with [Google Apps Script](https://github.com/al-codaio/peloton-coda-sync/blob/master/peloton_coda_gas.js) only where only 100 workouts were being returned from API
 
 ## March 2nd, 2021 Update
