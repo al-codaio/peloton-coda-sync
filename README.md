@@ -3,6 +3,14 @@
 # Sync data from Peloton to a table in a Coda doc
 I have created a [Coda template](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates) you can copy which contains the tables setup for syncing your own Peloton data. I try to make updates to the charts and dashboards in the template so check the template for new functionality. 
 
+## May 9th, 2022 Update
+**tl;dr:** I'll no longer be updating the Google Apps Script. I'll be updating the [Peloton Pack](https://coda.io/packs/peloton-11442) in Coda with new features going forward. The [template](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates) uses the Peloton Pack and the Google Apps Script won't work with this template anymore. 
+* Your Peloton data is now synced using the [Peloton Pack](https://coda.io/packs/peloton-11442) (native integration with Coda)
+* The Google Apps script, Python script, and old tables are stored in the [Archive / Deprecated](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/archive-deprecated-17) page
+* Instructions for how to use the Peloton Pack are on the [Packs page](https://coda.io/packs/peloton-11442) or see [Your Peloton Data](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/your-peloton-data-2)
+* To authenticate the Peloton Pack, enter your Peloton credentials [here](https://script.google.com/a/macros/coda.io/s/AKfycbyPUUYuE2Fdha8JJRtoIWURKGAH6GxGnJD0UwohONteQj4vuAl4VmEitoDdq984V-P5bg/exec) and copy/paste your `User ID` and `Cookie` into the Peloton Pack
+* The new sync tables in [Synced Workouts](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/synced-workouts-18), [Synced Friends](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/synced-friends-20), [Synced Friend Workouts](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/synced-friend-workouts-21), and [Synced Instructors](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/synced-instructors-19) can be refreshed manually, daily, or hourly (go to **Insert**→**Packs**→**Peloton**→**Settings**)
+
 ## December 11th, 2021 Update
 * Fixed issue with [Google Apps Script](https://github.com/al-codaio/peloton-coda-sync/blob/master/peloton_coda_gas.js) only where only 100 workouts were being returned from API
 
