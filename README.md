@@ -31,7 +31,7 @@ There are two scripts in this repo you can run to sync your [Peloton](https://ww
 1. [**peloton_coda_gas.js**](https://github.com/al-codaio/peloton-coda-sync/blob/master/peloton_coda_gas.js) - For Google Apps Script ([gist](https://gist.github.com/al-codaio/6419584906710daddbe5a4017ecc19bf))
 2. [**peloton_coda_python.py**](https://github.com/al-codaio/peloton-coda-sync/blob/master/peloton_coda_python.py) - Python script to run locally or in the cloud as a cron job ([gist](https://gist.github.com/al-codaio/b9cc9fe33a46cb014eef22f95cd4d459))
 
-## Setup for Google Apps Script (recommended)
+## Setup for Google Apps Script
 Starting in [line 10](https://github.com/al-codaio/peloton-coda-sync/blob/master/peloton_coda_gas.js#L10) to [line 13](https://github.com/al-codaio/peloton-coda-sync/blob/master/peloton_coda_gas.js#L13) of the [peloton_coda_gas.js](https://github.com/al-codaio/peloton-coda-sync/blob/master/peloton_coda_gas.js) script, you'll need to enter in some of your own data to make the script work. 
 
 ```javascript
