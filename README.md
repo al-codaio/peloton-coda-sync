@@ -11,6 +11,9 @@ I have created a [Coda template](https://coda.io/@atc/analyze-your-peloton-worko
 * To authenticate the Peloton Pack, enter your Peloton credentials [here](https://script.google.com/a/macros/coda.io/s/AKfycbyPUUYuE2Fdha8JJRtoIWURKGAH6GxGnJD0UwohONteQj4vuAl4VmEitoDdq984V-P5bg/exec) and copy/paste your `User ID` and `Cookie` into the Peloton Pack
 * The new sync tables in [Synced Workouts](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/synced-workouts-18), [Synced Friends](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/synced-friends-20), [Synced Friend Workouts](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/synced-friend-workouts-21), and [Synced Instructors](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/synced-instructors-19) can be refreshed manually, daily, or hourly (go to **Insert**→**Packs**→**Peloton**→**Settings**)
 
+_Here's a video tutorial on how the Peloton Pack works in Coda_
+[![peloton pack in coda](https://coda-us-west-2-droplr-storage.s3.us-west-2.amazonaws.com/files/acc_1218270/NAS8Ab)](https://www.youtube.com/watch?v=kcVzwO2ZJ9M&t=0s)
+
 ## December 11th, 2021 Update
 * Fixed issue with [Google Apps Script](https://github.com/al-codaio/peloton-coda-sync/blob/master/peloton_coda_gas.js) only where only 100 workouts were being returned from API
 
@@ -84,5 +87,5 @@ def pelotonData(request):
 * Don't share your Coda API key and Peloton login details 
 * Props to [@geudrik](https://github.com/geudrik) and his [Peloton Client Library](https://github.com/geudrik/peloton-client-library). Use his library if you want to develop a custom application with your Peloton data.
 
-## Video Tutorial
+## Old Video Tutorial
 [![sync peloton data to coda](https://p-ZmF7dQ.b0.n0.cdn.getcloudapp.com/items/Koulb0mm/255d2e54-f25b-487a-a271-014d0a86323e.jpg?v=fb744cd781736451971e66af0c94e7f0)](https://www.youtube.com/watch?v=L4llF9Wq58A)
