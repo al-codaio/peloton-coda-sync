@@ -3,6 +3,19 @@
 # Sync your Peloton workouts to Coda
 I have created a [Coda template](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates) you can copy which contains the tables setup for syncing your own Peloton data. I try to make updates to the charts and dashboards in the template so check the template for new functionality. 
 
+## May 13th, 2022 Update
+* Fixed a bug with walking and running workouts which would break the Pack
+* For walking and running workouts, the pace for your walk/run shows up in the `Avg Cadence` column
+* Elevation will show up in the `Total Output` column
+
+_🎉  Kudos to Dena for reporting this bug!_
+
+## May 11th, 2022 Update
+* Added a [Non-Cycling](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/non-cycling-22) page to show stats around your non-cycling workouts
+* View 10 most recent non-cycling workouts, total minutes by month, and avg. start time
+
+_🎉  Kudos to Mat for the suggestion!_
+
 ## May 9th, 2022 Update
 **tl;dr:** I'll no longer be updating the Google Apps Script. I'll be updating the [Peloton Pack](https://coda.io/packs/peloton-11442) in Coda with new features going forward. The [template](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates) uses the Peloton Pack and the Google Apps Script won't work with this template anymore. 
 * Your Peloton data is now synced using the [Peloton Pack](https://coda.io/packs/peloton-11442) (native integration with Coda)
