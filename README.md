@@ -3,6 +3,13 @@
 # Sync your Peloton workouts to Coda
 I have created a [Coda template](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates) you can copy which contains the tables setup for syncing your own Peloton data. I try to make updates to the charts and dashboards in the template so check the template for new functionality. 
 
+## May 14th, 2022 Update
+* Added average output/minute to the [Browse Instructors](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/browse-instructors-5) page showing your output/min for all the cycling classes you've taken with a given instructor
+* The [Friends' Cycling Leaderboard](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/friends-cycling-leaderboard-16) automatically defaults to all your friends selected when you copy the template
+* Fixed the Monthly: Average Output, Cadence, Resistance, Speed chart on the [Cycling page](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/cycling-7) to show avg. Cadence, Resistance, and Speed correctly
+
+_🎉  Kudos to Makon for reporting these issues!_
+
 ## May 13th, 2022 Update
 * Fixed a bug with walking and running workouts which would break the Pack
 * For walking and running workouts, the pace for your walk/run shows up in the `Avg Cadence` column
