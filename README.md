@@ -3,6 +3,10 @@
 # Sync your Peloton workouts to Coda
 I have created a [Coda template](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates) you can copy which contains the tables setup for syncing your own Peloton data. I try to make updates to the charts and dashboards in the template so check the template for new functionality. 
 
+## May 23rd, 2022 Update
+* You can add which type of workouts you want to sync in [Synced Workouts](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/synced-workouts-18) by changing the "workout type" in the sync table settings. This limits the number of workouts returned to the type you care about.
+* The types should be separated by commas. Options are **cycling**, **strength**, **yoga**, **stretching**, **running**, **walking**, **cardio**, **meditation**, **bike_bootcamp**, **outdoor**, and **bootcamp** (tread).
+
 ## May 14th, 2022 Update
 * Added average output/minute to the [Browse Instructors](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/browse-instructors-5) page showing your output/min for all the cycling classes you've taken with a given instructor
 * The [Friends' Cycling Leaderboard](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates/friends-cycling-leaderboard-16) automatically defaults to all your friends selected when you copy the template
