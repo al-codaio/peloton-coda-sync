@@ -1,6 +1,8 @@
 [![Coda API 1.0.0](https://img.shields.io/badge/Coda%20API-1.0.0-orange)](https://coda.io/developers/apis/v1)
 
 # Sync your Peloton workouts to Coda
+*This script is no longer updated. The most updated script is now handled by the [Coda Peloton Pack](https://coda.io/packs/peloton-11442).*
+
 I have created a [Coda template](https://coda.io/@atc/analyze-your-peloton-workout-stats-with-real-time-updates) you can copy which contains the tables setup for syncing your own Peloton data. I try to make updates to the charts and dashboards in the template so check the template for new functionality. 
 
 ## May 23rd, 2022 Update
